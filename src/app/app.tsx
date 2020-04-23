@@ -1,6 +1,6 @@
-import React, { lazy, Suspense, Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import * as React from 'react';
+import { Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
 import { INDEX } from './paths';
 import { AppliedRoute } from './routes';
 import ScrollToTop from 'components/ScrollToTop';
@@ -8,21 +8,26 @@ import Loading from 'components/Loading';
 import ErrorBoundary from 'components/ErrorBoundary';
 import * as actions from './store/actions';
 import '../styles/typography.scss';
+import { StoreState } from 'store/types';
 
-const Home = lazy(() => import('pages/Home'));
-const NotFound = lazy(() => import('pages/NotFound'));
+const Home = React.lazy(() => import('pages/Home'));
+const NotFound = React.lazy(() => import('pages/NotFound'));
 
 const mapStateToProps = ({
   app: { appLoaded, isAuthenticated, redirectTo },
-}) => ({ appLoaded, isAuthenticated, redirectTo });
+}: StoreState) => ({ appLoaded, isAuthenticated, redirectTo });
 
-class App extends Component {
+const connector = connect(mapStateToProps, actions);
+
+type Props = ConnectedProps<typeof connector>;
+
+class App extends React.Component<Props & RouteComponentProps, {}> {
   componentDidMount() {
     const { onAppLoad, appLoaded } = this.props;
     if (!appLoaded) onAppLoad();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: Props, prevState: {}) {
     const {
       onRedirect,
       redirectTo,
@@ -39,7 +44,7 @@ class App extends Component {
     return (
       <ScrollToTop>
         <ErrorBoundary>
-          <Suspense fallback={<Loading />}>
+          <React.Suspense fallback={<Loading />}>
             <Switch>
               <AppliedRoute
                 path={INDEX}
@@ -50,11 +55,11 @@ class App extends Component {
               <Route path="/404" component={NotFound} />
               <Redirect to="/404" />
             </Switch>
-          </Suspense>
+          </React.Suspense>
         </ErrorBoundary>
       </ScrollToTop>
     );
   }
 }
 
-export default connect(mapStateToProps, actions)(App);
+export default connector(App);

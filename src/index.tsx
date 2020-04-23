@@ -1,15 +1,13 @@
-import React, { StrictMode } from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Root from 'root';
 import * as serviceWorker from './serviceWorker';
-import configureStore from 'store';
-
-const store = configureStore();
+import store from 'store';
 
 ReactDOM.render(
-  <StrictMode>
-    <Root store={store} />
-  </StrictMode>,
+  <React.StrictMode>
+    <Root store={store()} />
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

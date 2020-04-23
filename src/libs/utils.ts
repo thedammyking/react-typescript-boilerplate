@@ -1,8 +1,7 @@
-export const querystring = (search = window.location.search) => {
-  const searchParams = new URLSearchParams(search);
-  return searchParams;
+export const querystring = (search: string = window.location.search) => {
+  return new URLSearchParams(search);
 };
 
-export const navigate = (uri) => {
-  return (window.location = `${window.location.origin}/${uri}`);
+export const navigate = (uri: string): void => {
+  window.location.href = `${window.location.origin}/${uri}`;
 };

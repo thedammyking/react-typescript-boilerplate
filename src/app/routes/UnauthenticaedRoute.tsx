@@ -3,11 +3,11 @@ import { Route, Redirect } from 'react-router-dom';
 import { querystring } from 'libs';
 
 const UnauthenticaedRoute = ({ component: C, props: cProps, ...rest }) => {
-  const redirect = querystring.get('redirect');
+  const redirect = querystring().get('redirect');
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         !cProps.isAuthenticated ? (
           <C {...props} {...cProps} />
         ) : (

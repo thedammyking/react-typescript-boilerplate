@@ -1,13 +1,17 @@
 import { APP_LOAD, REDIRECT, LOGIN, LOGOUT } from './types';
 import omit from 'lodash/omit';
+import { AppReducer, StoreAction } from 'store/types';
 
-const initState = {
+const initState: AppReducer = {
   isAuthenticated: false,
   appLoaded: false,
-  redirectTo: null,
+  redirectTo: '',
 };
 
-export default (state = initState, { type, isAuthenticated }) => {
+export default (
+  state = initState,
+  { type, isAuthenticated }: AppReducer & StoreAction
+) => {
   switch (type) {
     case APP_LOAD:
       return {
@@ -18,7 +22,7 @@ export default (state = initState, { type, isAuthenticated }) => {
     case REDIRECT:
       return {
         ...state,
-        redirectTo: null,
+        redirectTo: '',
       };
     case LOGIN:
       return {

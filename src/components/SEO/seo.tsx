@@ -6,7 +6,13 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import siteMetadata from './data';
 
-function SEO({ description, lang, meta, title }) {
+interface Props {
+  description: string;
+  lang: string;
+  meta: [];
+  title: string;
+}
+function SEO({ description, lang, meta, title }: Props) {
   const metaDescription = description || siteMetadata.description;
 
   return (
