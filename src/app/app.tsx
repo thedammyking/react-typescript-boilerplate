@@ -9,19 +9,14 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import * as actions from './store/actions';
 import '../styles/typography.scss';
 import { StoreState } from 'store/types';
+import { AppReducer } from './store/types';
 
 const Home = React.lazy(() => import('pages/Home'));
 const NotFound = React.lazy(() => import('pages/NotFound'));
 
-const mapStateToProps = ({
-  app: { appLoaded, isAuthenticated, redirectTo },
-}: StoreState) => ({ appLoaded, isAuthenticated, redirectTo });
+type Props = ConnectedProps<typeof connector> & RouteComponentProps;
 
-const connector = connect(mapStateToProps, actions);
-
-type Props = ConnectedProps<typeof connector>;
-
-class App extends React.Component<Props & RouteComponentProps, {}> {
+class App extends React.Component<Props, {}> {
   componentDidMount() {
     const { onAppLoad, appLoaded } = this.props;
     if (!appLoaded) onAppLoad();
@@ -61,5 +56,11 @@ class App extends React.Component<Props & RouteComponentProps, {}> {
     );
   }
 }
+
+const mapStateToProps = ({
+  app: { appLoaded, isAuthenticated, redirectTo },
+}: StoreState<AppReducer>) => ({ appLoaded, isAuthenticated, redirectTo });
+
+const connector = connect(mapStateToProps, actions);
 
 export default connector(App);

@@ -1,6 +1,7 @@
 import { APP_LOAD, REDIRECT, LOGIN, LOGOUT } from './types';
 import omit from 'lodash/omit';
-import { AppReducer, StoreAction } from 'store/types';
+import { StoreAction } from 'store/types';
+import { AppReducer } from './types';
 
 const initState: AppReducer = {
   isAuthenticated: false,

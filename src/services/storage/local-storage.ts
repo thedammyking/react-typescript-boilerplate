@@ -21,7 +21,7 @@ export default {
       ['accessToken', tokenObj.accessToken || ''],
       ['refreshToken', tokenObj.refreshToken || ''],
     ]),
-  setUser: (userObject) =>
+  setUser: (userObject: any) =>
     window.localStorage.setItem('user', JSON.stringify(userObject)),
   getAccessToken: () => window.localStorage.getItem('accessToken'),
   getRefreshToken: () => window.localStorage.getItem('refreshToken'),

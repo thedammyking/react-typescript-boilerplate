@@ -1,11 +1,5 @@
-export interface AppReducer {
-  isAuthenticated: boolean;
-  appLoaded: boolean;
-  redirectTo?: string;
-}
-
-export interface StoreState {
-  app: AppReducer;
+export interface StoreState<T> {
+  [key: string]: T;
 }
 
 export interface StoreAction {
@@ -13,4 +7,5 @@ export interface StoreAction {
   accessToken?: string;
   refreshToken?: string;
   error?: {};
+  isAuthenticated?: boolean;
 }

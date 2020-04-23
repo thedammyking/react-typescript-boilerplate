@@ -1,7 +1,8 @@
 import { APP_LOAD, REDIRECT } from './types';
 import { LocalStorageService } from 'services';
+import { StoreAction } from 'store/types';
 
-export const onAppLoad = () => {
+export const onAppLoad = (): StoreAction => {
   const isAuthenticated = !!LocalStorageService.getAccessToken();
 
   return {
@@ -10,6 +11,6 @@ export const onAppLoad = () => {
   };
 };
 
-export const onRedirect = () => ({
+export const onRedirect = (): StoreAction => ({
   type: REDIRECT,
 });

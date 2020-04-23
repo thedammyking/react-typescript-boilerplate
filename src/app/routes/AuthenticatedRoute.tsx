@@ -1,10 +1,15 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { AppRouteComponentProps } from '../store/types';
 
-const AuthenticatedRoute = ({ component: C, props: cProps, ...rest }) => (
+const AuthenticatedRoute = ({
+  component: C,
+  props: cProps,
+  ...rest
+}: AppRouteComponentProps) => (
   <Route
     {...rest}
-    render={props =>
+    render={(props) =>
       cProps.isAuthenticated ? (
         <C {...props} {...cProps} />
       ) : (
